@@ -1,7 +1,6 @@
 CFLAGS := $(filter-out -Werror,$(CFLAGS))
 CXXFLAGS := $(filter-out -Werror,$(CXXFLAGS))
 ccflags-y += -Wno-error
-CXXFLAGS += -Wno-error
 
 export CFLAGS := $(filter-out -Werror,$(CFLAGS)) -Wno-error
 export CXXFLAGS := $(filter-out -Werror,$(CXXFLAGS)) -Wno-error
