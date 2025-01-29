@@ -713,3 +713,6 @@ CONFIG_SLUB_STAT_DEBUG=y
 # Kui.Zhang@PSW.BSP.Kernel.Performance, 2018-11-07, add process reclaim.
 CONFIG_PROCESS_RECLAIM=y
 #endif
+
+#Try
+CONFIG_OPPO_FINGERPRINT_PROJCT=y
