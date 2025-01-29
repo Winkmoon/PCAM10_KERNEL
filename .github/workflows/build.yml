@@ -1,4 +1,4 @@
-name: Only Build Kernel
+name: Only Build a7x Kernel
 on:
   workflow_call:
   workflow_dispatch:
