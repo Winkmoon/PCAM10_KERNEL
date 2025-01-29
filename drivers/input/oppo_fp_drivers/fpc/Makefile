@@ -1,3 +1,11 @@
+CFLAGS := $(filter-out -Werror,$(CFLAGS))
+CXXFLAGS := $(filter-out -Werror,$(CXXFLAGS))
+CFLAGS += -Wno-error
+CXXFLAGS += -Wno-error
+
+export CFLAGS := $(filter-out -Werror,$(CFLAGS)) -Wno-error
+export CXXFLAGS := $(filter-out -Werror,$(CXXFLAGS)) -Wno-error
+
 ifeq ($(CONFIG_OPPO_FINGERPRINT_QCOM),y)
 PROJECT_NAME = $(subst MSM_,,$(OPPO_TARGET_DEVICE))
 else ifeq ($(CONFIG_OPPO_FINGERPRINT_MTK),y)
