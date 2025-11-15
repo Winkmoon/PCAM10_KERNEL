@@ -2714,10 +2714,12 @@ static void nvt_black_screen_test(void *chip_data, char *message)
         }
         ph = (struct nvt_test_header *)(fw->data);
 
-        //create a file to store test data in /sdcard/ScreenOffTpTestReport
+//create a file to store test data in /sdcard/ScreenOffTpTestReport
         getnstimeofday(&now_time);
         rtc_time_to_tm(now_time.tv_sec, &rtc_now_time);
-        sprintf(data_buf, "/sdcard/TpTestReport/screenOff/tp_testlimit_%02d%02d%02d-%02d%02d%02d-utc.csv",
+        // 使用snprintf替代sprintf并增大缓冲区（假设原data_buf为64字节，此处改为128字节）
+        char data_buf[128];  // 增大缓冲区至128字节
+        snprintf(data_buf, sizeof(data_buf), "/sdcard/TpTestReport/screenOff/tp_testlimit_%02d%02d%02d-%02d%02d%02d-utc.csv",
             (rtc_now_time.tm_year + 1900) % 100, rtc_now_time.tm_mon + 1, rtc_now_time.tm_mday,
             rtc_now_time.tm_hour, rtc_now_time.tm_min, rtc_now_time.tm_sec);
         old_fs = get_fs();
@@ -2727,7 +2729,9 @@ static void nvt_black_screen_test(void *chip_data, char *message)
         if (fd < 0) {
                 TPD_INFO("Open log file '%s' failed.\n", data_buf);
                 err_cnt++;
-                sprintf(buf, "Open log file '%s' failed.\n", data_buf);
+                // 同理修复错误信息缓冲区（假设buf原定义不足，此处确保使用snprintf）
+                char buf[256];  // 确保缓冲区足够容纳错误信息
+                snprintf(buf, sizeof(buf), "Open log file '%s' failed.\n", data_buf);
                 goto OUT;
         }
 
@@ -2737,6 +2741,7 @@ static void nvt_black_screen_test(void *chip_data, char *message)
         lpwg_diff_rawdata_N = (int32_t *)(fw->data + ph->array_LPWG_Diff_N_offset);
 
         //---FW Rawdata Test---
+	
         TPD_INFO("LPWG mode FW Rawdata Test \n");
         memset(raw_data, 0, buf_len);
         if (nvt_get_fw_pipe(chip_info) == 0)
