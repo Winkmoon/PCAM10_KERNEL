@@ -39,8 +39,9 @@ jobs:
     - name: 下载内核模块
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone --depth=1 https://github.com/oppo-source/A91.git -b main .
-        rm -rf kernel-4.4
+        git clone --depth=1 https://github.com/oppo-source/A91.git -b main 123
+        mv ./123/vendor ./
+        rm -rf 123
 
 
     - name: 下载内核源码
